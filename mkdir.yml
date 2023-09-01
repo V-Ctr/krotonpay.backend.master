@@ -1,7 +1,13 @@
-- name: Create Ansible folder
-  hosts: all
-  become: true
-
+name: Monitor AWS Resources
+  hosts: localhost
   tasks:
-    - name: Create ansible directory
-      command: mkdir /home/ubuntu/ansible
+    - name: Fetch EC2 facts
+      ec2_instance_facts:
+        aws_access_key: "AKIAT5E7S7ABTJQIDVXI" 
+        aws_secret_key: "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" 
+        region: "us-east-1"
+      register: ec2_facts
+
+    - name: Display EC2 facts
+      debug:
+        var: ec2_facts
